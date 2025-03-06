@@ -4,8 +4,22 @@ import Navbar from "@/components/Navbar";
 import Iridescence from "@/components/WebGL/Iridescence";
 import CreateNew from "./CreateNew";
 
-const HomeBanner = () => {
-  const isConnected = true;
+interface HomeBannerProps {
+  isConnected: boolean;
+  templates: [
+    {
+      _id: string;
+      name: string;
+      amplifyAppId: string;
+      description: string;
+      structure: any;
+      createdAt: string;
+      __v: number;
+    }
+  ];
+}
+
+const HomeBanner = ({ isConnected, templates }: HomeBannerProps) => {
   return (
     <div className="w-full h-screen select-none">
       <Navbar />
@@ -26,7 +40,7 @@ const HomeBanner = () => {
         />
       </div>
       <div className="absolute bottom-0 right-0 z-20 p-4 flex items-center gap-2">
-        <p className="text-white text-sm">Connected to Backed</p>
+        <p className="text-white text-sm">Connected to Backend</p>
         <div
           className={`w-2 h-2 rounded-full animate-ping ${
             isConnected ? "bg-green-500" : "bg-red-500"
