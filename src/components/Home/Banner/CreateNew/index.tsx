@@ -11,25 +11,19 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { Template } from "..";
+import Link from "next/link";
 
-const cards = [
-  {
-    id: 1,
-    title: "Create Your Personal Website",
-    description:
-      "Build beautiful, responsive websites with our intuitive drag-and-drop builder",
-    image: "/assets/personal-portfolio.png",
-  },
-  {
-    id: 2,
-    title: "Launch Your Business Portfolio",
-    description:
-      "Start your online presence with professional templates and easy customization",
-    image: "/assets/store-portfolio.png",
-  },
+const images = [
+  "/assets/personal-portfolio.png",
+  "/assets/store-portfolio.png",
 ];
 
-const CreateNew = () => {
+interface CreateNewProps {
+  templates: Template[];
+}
+
+const CreateNew = ({ templates }: CreateNewProps) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -45,28 +39,30 @@ const CreateNew = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-6">Choose Your Template</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-            {cards.map((card) => (
+            {templates.map((template, index) => (
               <Card
-                key={card.id}
+                key={template._id}
                 className="overflow-hidden transition-all hover:shadow-lg cursor-pointer bg-gray-50"
               >
                 <div className="aspect-video w-full relative">
                   <Image
-                    src={card.image}
-                    alt={card.title}
+                    src={images[index]}
+                    alt={template.name}
                     fill
                     className="object-cover"
                     priority
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>{card.title}</CardTitle>
-                  <CardDescription>{card.description}</CardDescription>
+                  <CardTitle>{template.name}</CardTitle>
+                  <CardDescription>{template.description}</CardDescription>
                 </CardHeader>
                 <CardFooter className="flex justify-between">
-                  <Button size="default" className="w-full cursor-pointer">
-                    Create Now
-                  </Button>
+                  <Link href={`/create/${template.amplifyAppId}`}>
+                    <Button size="default" className="w-full cursor-pointer">
+                      Create Now
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}

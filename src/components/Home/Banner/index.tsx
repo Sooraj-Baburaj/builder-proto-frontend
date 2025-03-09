@@ -4,19 +4,19 @@ import Navbar from "@/components/Navbar";
 import Iridescence from "@/components/WebGL/Iridescence";
 import CreateNew from "./CreateNew";
 
+export interface Template {
+  _id: string;
+  name: string;
+  amplifyAppId: string;
+  description: string;
+  structure: any;
+  createdAt: string;
+  __v: number;
+}
+
 interface HomeBannerProps {
   isConnected: boolean;
-  templates: [
-    {
-      _id: string;
-      name: string;
-      amplifyAppId: string;
-      description: string;
-      structure: any;
-      createdAt: string;
-      __v: number;
-    }
-  ];
+  templates: Template[];
 }
 
 const HomeBanner = ({ isConnected, templates }: HomeBannerProps) => {
@@ -28,7 +28,7 @@ const HomeBanner = ({ isConnected, templates }: HomeBannerProps) => {
           <h1 className="text-7xl font-bold text-white">
             Build without Limits
           </h1>
-          <CreateNew />
+          <CreateNew templates={templates} />
         </div>
       </section>
       <div className="w-full h-screen absolute top-0 left-0">
