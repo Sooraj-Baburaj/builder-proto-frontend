@@ -65,7 +65,11 @@ const RenderForm = ({ appId }: { appId: string }) => {
       content,
     });
     if (response.status === 200) {
-      window.open(response.data.domain, "_blank", "noopener,noreferrer");
+      const url = response.data.domain.startsWith("http")
+        ? response.data.domain
+        : `https://${response.data.domain}`;
+
+      window.open(url, "_blank", "noopener,noreferrer");
     } else {
       toast.error(response.data.error ?? "An error occurred");
     }
